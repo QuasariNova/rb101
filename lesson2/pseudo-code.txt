@@ -1,0 +1,158 @@
+For example, write out pseudo-code (both casual and formal) that does the 
+following:
+
+  a method that returns the sum of two integers
+
+Casual:
+
+  Given two integers. Add them together and return the value
+
+Formal:
+
+  START
+
+  # Given two integers called "num1" and "num2"
+  SET sum = num1 + num2
+
+  PRINT sum
+
+  END
+--------------------------------------------------------------------------------
+  a method that takes an array of strings, and returns a string that is all 
+  those strings concatenated together
+
+Casual:
+Given a collection of strings.
+
+Iterate through the collection one by one.
+  - start with an empty string
+  - for each iteration, concatenate the current string with the empty string 
+    and reassign the empty string with the new concatenated string.
+
+After iterating through the collection, return the concatenated string
+Formal:
+
+START
+
+# Given a collection of strings called "strings"
+
+SET iterator = 1
+SET new_string = ""
+
+WHILE iterator <= length of strings
+  SET new_string = new_string + value within strings collection at space    
+                   "iterator"
+  iterator = iterator + 1
+
+PRINT new_string
+
+END
+
+--------------------------------------------------------------------------------
+  a method that takes an array of integers, and returns a new array with 
+  every other element from the original array, starting with the first 
+  element. For instance:
+
+    every_other([1,4,7,2,5]) # => [1,7,5]
+
+Casual:
+Given a collection of integers called "numbers"
+
+Iterate through the collection by two starting from the first index
+  - start with an empty collection
+  - add value of collection at iterator to the end of the empty array
+
+After iterating through the collection, return the new array.
+
+Formal:
+
+START
+
+# Given a collection of integers called "numbers"
+
+SET iterator = 1
+SET new_array = []
+
+WHILE iterator <= length of new_array
+  SET new_array[iterator / 2] = value within numbers string at space "iterator"
+
+PRINT new_array
+
+END
+
+--------------------------------------------------------------------------------
+  a method that determines the index of the 3rd occurrence of a given character 
+  in a string. For instance, if the given character is 'x' and the string is 
+  'axbxcdxex', the method should return 6 (the index of the 3rd 'x'). If the 
+  given character does not occur at least 3 times, return nil.
+
+Casual:
+Given a string called "string" and a character called "character"
+
+Iterate through the characters of the string one by one from the first index
+  - save an integer with 0
+  - for each iteration if the current character is the "character" provided, 
+    increase the saved integer by 1
+  - if the saved integer equals 3, return the current iterations index
+
+After iterating through the collection, if it hasn't returned, return nil
+Formal:
+
+START
+
+# Given a string called "string" and character called "character"
+
+SET iterator = 1
+SET count = 0
+
+WHILE iterator <= length of string
+  IF "character" == value of the current iteration
+    count = count + 1
+  IF count == 3
+    PRINT iterator
+    END
+  iterator = iterator + 1
+
+PRINT nil
+
+END
+
+--------------------------------------------------------------------------------
+  a method that takes two arrays of numbers and returns the result of merging 
+  the arrays. The elements of the first array should become the elements at the 
+  even indexes of the returned array, while the elements of the second array 
+  should become the elements at the odd indexes. For instance:
+
+    merge([1, 2, 3], [4, 5, 6]) # => [1, 4, 2, 5, 3, 6]
+
+  You may assume that both array arguments have the same number of elements. 
+
+Casual:
+Given two arrays of equal length called "numbers1" and "numbers2"
+
+Iterate a number of times equal to the length of one of the collections
+  - Save an empty collection
+  - Each loop, store the current value of "numbers1" to the end of the saved 
+    collection
+  - Each loop, store the current value of "numbers2" to the end of the saved 
+    collection
+
+After iterating through the collections, return the saved value.
+
+Formal:
+
+START
+
+# Given two arrays of equal length called "numbers1" and "numbers2"
+
+SET iterator = 1
+SET collection = []
+
+WHILE iterator <= length of collections
+  collection << current value of "numbers1"
+  collection << current value of "numbers2"
+  iterator = iterator + 1
+
+PRINT collection
+
+END
