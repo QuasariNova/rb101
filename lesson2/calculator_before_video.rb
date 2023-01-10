@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # From Lesson 2: 6 Walk-through: Calculator
 # Build a command line calculator program that does the following:
 #
@@ -20,10 +22,9 @@ def calculate(operator, numbers)
   when '+' then numbers[0] + numbers[1]
   when '-' then numbers[0] - numbers[1]
   when '/'
-    return puts "Divide By Zero Error" if numbers[1].zero?
+    return puts 'Divide By Zero Error' if numbers[1].zero?
+
     numbers[0] / numbers[1]
-  else
-    nil
   end
 end
 
@@ -34,12 +35,12 @@ numbers = [1, 2].map do |n|
 end
 
 operator = loop do
-             puts "Enter operator(+, -, *, or /):"
-             input = gets
-             char = input[0]
-             break char if char == '+' || char == '-' || char == '*' || 
-                           char == '/'
-             puts "Please enter either +, -, *, or /"
-           end
+  puts 'Enter operator(+, -, *, or /):'
+  input = gets
+  char = input[0]
+  break char if ['+', '-', '*', '/'].include?(char)
+
+  puts 'Please enter either +, -, *, or /'
+end
 
 puts "#{numbers[0]} #{operator} #{numbers[1]} = #{calculate(operator, numbers)}"
