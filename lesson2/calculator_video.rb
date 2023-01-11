@@ -25,7 +25,7 @@ result = case operator
          when '3'
            number1.to_i * number2.to_i
          else
-           number1.to_f / number2
+           number1.to_f / number2.to_f
          end
 
 Kernel.puts("The result is #{result}")
