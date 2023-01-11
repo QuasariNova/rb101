@@ -1,0 +1,10 @@
+en:
+  greeting: "Welcome to CALCULATOR! What is your name?"
+  name_error: "Please enter a valid name."
+  first: "What's the first number?"
+  second: "How about the second?"
+  number_error: "Please input a valid number."
+  operator: "Choose operator (+, -, *, or /):"
+  operator_error: "Please enter either +, -, *, or /"
+  again: "Would you like to calculate again? (y/n)"
+  farewell: "Goodbye,"
