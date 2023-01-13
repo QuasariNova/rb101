@@ -6,8 +6,14 @@
 # 3+ wins
 
 require 'io/console'
+require 'yaml'
 
 VALID_CHOICES = %w(rock paper scissors spock lizard)
+MESSAGES = YAML.load_file 'rpsls.yaml'
+
+def get_message(message)
+  MESSAGES[message]
+end
 
 def prompt(message='', print_it: false)
   string = "=> #{message}"
@@ -30,7 +36,9 @@ def calculate_win(player_one_choice, player_two_choice)
 end
 
 def display_score(score)
-  prompt "Player: #{score[0]}     Computer: #{score[1]}"
+  player_score = get_message 'player_score'
+  computer_score = get_message 'computer_score'
+  prompt "#{player_score}#{score[0]}     #{computer_score}#{score[1]}"
 end
 
 def find_possible_inputs(user_input)
@@ -39,25 +47,28 @@ end
 
 def display_results(who_won)
   prompt case who_won
-         when -1 then "The Computer Won!"
-         when 0 then "It's a tie"
-         when 1 then "You won!"
+         when -1 then get_message 'computer_win'
+         when 0 then get_message 'a_tie'
+         when 1 then get_message 'player_win'
          end
 end
 
 def ask_to_replay
+  yes = get_message('affirm')
+  no = get_message('deny')
   loop do
-    prompt "Would you like to play again? (y/n)"
+    prompt get_message('play_again')
     prompt(print_it: true)
     again = gets.downcase
-    break true if again.start_with? 'y'
-    break false if again.start_with? 'n'
-    prompt "Please enter y/es or n/o!"
+    break true if again.start_with? yes[0]
+    break false if again.start_with? no[0]
+    prompt get_message('play_again_error')
   end
 end
 
 def print_menu(choices)
-  prompt "Choose an option(1-#{choices.length})"
+  option_message = get_message 'option'
+  prompt "#{option_message} (1-#{choices.length})"
   choices.each_with_index do |choice, index|
     prompt "#{index + 1} #{choice.capitalize}"
   end
@@ -70,15 +81,17 @@ def ask_to_pick_number_menu(choices)
     choice = gets
     index = choice.to_i - 1
     break index unless index < 0 || index >= choices.length
-    prompt "Please pick a number between 1-#{choices.length}"
+    prompt "#{get_message('number_error')} 1-#{choices.length}"
   end
 end
 
 loop do
   $stdout.clear_screen
-  prompt "Welcome to Rock, Paper, Scissors, Lizard Spock."
+  prompt get_message('welcome')
 
-  menu_prompts = ["Play Quick Game", "Play Match(first to 3)", "Quit"]
+  menu_prompts = [get_message('play_quick'),
+                  get_message('play_match'),
+                  get_message('quit')]
   title_choice = ask_to_pick_number_menu menu_prompts
 
   break if title_choice == 2
@@ -90,7 +103,7 @@ loop do
     display_score score if match
 
     player_one_choice = loop do # input loop
-      prompt "Rock, Paper, Scissors, Lizard, or Spock?"
+      prompt get_message('gameplay_prompt')
 
       prompt print_it: true
       choices = find_possible_inputs gets().chomp().downcase()
@@ -98,24 +111,26 @@ loop do
       break choices[0] if choices.length == 1
 
       if choices.length > 1
-        prompt "Did you mean:"
-        menu_prompts = choices + ["None of the above."]
+        prompt get_message('verify_prompt')
+        menu_prompts = choices + [get_message('verify_none')]
         further_choice = ask_to_pick_number_menu menu_prompts
 
         next if further_choice == menu_prompts.length - 1
         break choices[further_choice]
       end # end of verification check
 
-      prompt "Please enter a valid choice!"
+      prompt get_message('verify_error')
     end # end of player choice loop
 
     player_two_choice = VALID_CHOICES.sample
 
     $stdout.clear_screen
 
-    prompt <<~TXT.chomp
-      You played #{player_one_choice}; Computer played #{player_two_choice}
-    TXT
+    player_played = get_message 'player_played'
+    player_played += player_one_choice
+    computer_played = get_message 'computer_played'
+    computer_played += player_two_choice
+    prompt "#{player_played};     #{computer_played}"
 
     who_won = calculate_win(player_one_choice, player_two_choice)
     display_results who_won
@@ -134,7 +149,7 @@ loop do
     display_score score
 
     if score[index] >= 3
-      prompt "#{index.zero? ? 'You are' : 'The computer is'} the Grand Winner!"
+      prompt get_message(index.zero? ? 'player_grand' : 'computer_grand')
       again = ask_to_replay
       if again
         next
@@ -143,8 +158,8 @@ loop do
       end
     end
 
-    prompt "Press any key to continue"
+    prompt get_message('press_a_key')
     $stdin.getch
   end
 end
-prompt "Goodbye! Thanks for playing!"
+prompt get_message('goodbye')
