@@ -85,6 +85,32 @@ def ask_to_pick_number_menu(choices)
   end
 end
 
+def verify_player_intent(choices)
+  return nil if choices.length == 0
+  return choices[0] if choices.length == 1
+
+  prompt get_message('verify_prompt')
+  menu_prompts = choices + [get_message('verify_none')]
+  intent = ask_to_pick_number_menu menu_prompts
+  return nil if intent == menu_prompts.length - 1
+  choices[intent]
+end
+
+def get_game_choice
+  loop do
+    prompt get_message('gameplay_prompt')
+
+    prompt print_it: true
+    choices = find_possible_inputs gets().chomp().downcase()
+
+    intent = verify_player_intent choices
+    break intent if intent
+
+    prompt get_message('verify_error')
+  end
+end
+
+# start of game
 loop do
   $stdout.clear_screen
   prompt get_message('welcome')
@@ -102,60 +128,32 @@ loop do
     $stdout.clear_screen
     display_score score if match
 
-    player_one_choice = loop do # input loop
-      prompt get_message('gameplay_prompt')
-
-      prompt print_it: true
-      choices = find_possible_inputs gets().chomp().downcase()
-
-      break choices[0] if choices.length == 1
-
-      if choices.length > 1
-        prompt get_message('verify_prompt')
-        menu_prompts = choices + [get_message('verify_none')]
-        further_choice = ask_to_pick_number_menu menu_prompts
-
-        next if further_choice == menu_prompts.length - 1
-        break choices[further_choice]
-      end # end of verification check
-
-      prompt get_message('verify_error')
-    end # end of player choice loop
+    player_one_choice = get_game_choice
 
     player_two_choice = VALID_CHOICES.sample
 
     $stdout.clear_screen
 
     player_played = get_message 'player_played'
-    player_played += player_one_choice
+    player_played += player_one_choice.capitalize
     computer_played = get_message 'computer_played'
-    computer_played += player_two_choice
+    computer_played += player_two_choice.capitalize
     prompt "#{player_played};     #{computer_played}"
 
     who_won = calculate_win(player_one_choice, player_two_choice)
     display_results who_won
 
-    if !match
-      again = ask_to_replay
-      if again
-        next
-      else
-        break
-      end
-    end
-
     index = (1 - who_won) / 2
     score[index] += 1 if !who_won.zero?
-    display_score score
+    display_score score if match
 
-    if score[index] >= 3
-      prompt get_message(index.zero? ? 'player_grand' : 'computer_grand')
-      again = ask_to_replay
-      if again
-        next
-      else
-        break
+    if score[index] >= 3 || !match
+      if match
+        prompt get_message(index.zero? ? 'player_grand' : 'computer_grand')
       end
+      again = ask_to_replay
+      next if again
+      break
     end
 
     prompt get_message('press_a_key')
