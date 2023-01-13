@@ -110,6 +110,14 @@ def get_game_choice
   end
 end
 
+def display_each_choices(player_one_choice, player_two_choice)
+  player_played = get_message 'player_played'
+  player_played += player_one_choice.capitalize
+  computer_played = get_message 'computer_played'
+  computer_played += player_two_choice.capitalize
+  prompt "#{player_played};     #{computer_played}"
+end
+
 # start of game
 loop do
   $stdout.clear_screen
@@ -134,11 +142,7 @@ loop do
 
     $stdout.clear_screen
 
-    player_played = get_message 'player_played'
-    player_played += player_one_choice.capitalize
-    computer_played = get_message 'computer_played'
-    computer_played += player_two_choice.capitalize
-    prompt "#{player_played};     #{computer_played}"
+    display_each_choices(player_one_choice, player_two_choice)
 
     who_won = calculate_win(player_one_choice, player_two_choice)
     display_results who_won
@@ -147,7 +151,7 @@ loop do
     score[index] += 1 if !who_won.zero?
     display_score score if match
 
-    if score[index] >= 3 || !match
+    if score[index] >= 3 || !match # game / match is over, check for play again
       if match
         prompt get_message(index.zero? ? 'player_grand' : 'computer_grand')
       end
