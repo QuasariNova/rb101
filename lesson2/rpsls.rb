@@ -59,14 +59,12 @@ def display_results(who_won)
 end
 
 def ask_to_replay
-  yes = get_message('affirm')
-  no = get_message('deny')
   loop do
     prompt get_message('play_again')
     prompt(print_it: true)
     again = gets.downcase
-    break true if again.start_with? yes[0]
-    break false if again.start_with? no[0]
+    break true if again.start_with? 'y'
+    break false if again.start_with? 'n'
     prompt get_message('play_again_error')
   end
 end

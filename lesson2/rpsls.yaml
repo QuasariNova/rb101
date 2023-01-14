@@ -3,8 +3,6 @@ computer_score: 'Computer: '
 computer_win: 'The Computer Won!'
 player_win: 'You Won!'
 a_tie: "It's A Tie!"
-affirm: 'yes'
-deny: 'no'
 play_again: 'Would you like to play again? (y/n)'
 play_again_error: 'Please enter y/es or n/o!'
 option: 'Choose an option'
