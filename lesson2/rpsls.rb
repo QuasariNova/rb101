@@ -25,12 +25,17 @@ def prompt(message='', print_it: false)
 end
 
 # Returns -1 for player 2 win, 1 for player 1 win, and 0 for tie
+# This only works if VALID_CHOICES is set up right and is an odd length
+# Basically VALID_CHOICES is set that where every possible choice has the
+# same win conditions in relation to each other. If it's +1 or +3 from
+# another choice, it's a winner, +2 or +4 it's a loser. We take the modulus
+# to turn negatives like -1 into positives like +4, while keeping positives
+# the same.
 def calculate_win(player_one_choice, player_two_choice)
   one_index = VALID_CHOICES.index(player_one_choice)
   two_index = VALID_CHOICES.index(player_two_choice)
   index_dif = one_index - two_index
   return 0 if index_dif.zero?
-  # This only works if VALID_CHOICES is set up right and is an odd length
   return 1 if (index_dif % VALID_CHOICES.length).odd?
   -1
 end
