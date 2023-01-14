@@ -12,7 +12,7 @@ end
 # We allow zero's with the last version, now I want it to be optional. APR
 # could be zero, the other inputs can't.
 def valid_number?(num_string, allow_zero: true)
-  return false if num_string[0] == '-' # negative number
+  return false if num_string.empty? || num_string[0] == '-' # negative number
   return false if num_string.to_i == 0 && !allow_zero
   return true if num_string.to_i.to_s == num_string
   float_string = num_string.to_f.to_s
