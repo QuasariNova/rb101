@@ -43,6 +43,7 @@ end
 def display_score(score)
   player_score = get_message 'player_score'
   computer_score = get_message 'computer_score'
+
   prompt "#{player_score}#{score[0]}     #{computer_score}#{score[1]}"
 end
 
@@ -62,9 +63,11 @@ def ask_to_replay
   loop do
     prompt get_message('play_again')
     prompt(print_it: true)
+
     again = gets.downcase
     break true if again.start_with? 'y'
     break false if again.start_with? 'n'
+
     prompt get_message('play_again_error')
   end
 end
@@ -72,6 +75,7 @@ end
 def print_menu(choices)
   option_message = get_message 'option'
   prompt "#{option_message} (1-#{choices.length})"
+
   choices.each_with_index do |choice, index|
     prompt "#{index + 1} #{choice.capitalize}"
   end
@@ -81,9 +85,11 @@ def ask_to_pick_number_menu(choices)
   print_menu choices
   loop do
     prompt(print_it: true)
+
     choice = gets
     index = choice.to_i - 1
     break index unless index < 0 || index >= choices.length
+
     prompt "#{get_message('number_error')} 1-#{choices.length}"
   end
 end
@@ -94,6 +100,7 @@ def verify_player_intent(choices)
 
   prompt get_message('verify_prompt')
   menu_prompts = choices + [get_message('verify_none')]
+
   intent = ask_to_pick_number_menu menu_prompts
   return nil if intent == menu_prompts.length - 1
   choices[intent]
@@ -116,8 +123,10 @@ end
 def display_each_choices(player_one_choice, player_two_choice)
   player_played = get_message 'player_played'
   player_played += player_one_choice.capitalize
+
   computer_played = get_message 'computer_played'
   computer_played += player_two_choice.capitalize
+
   prompt "#{player_played};     #{computer_played}"
 end
 
