@@ -83,3 +83,15 @@ array between method calls)?
   2. This will delete all instances of 1 from the array, return 1, and mutate
       the array into this:
     [2, 3, 4, 5]
+
+================================================================================
+
+5.Programmatically determine if 42 lies between 10 and 100.
+
+  hint: Use Ruby's range object in your solution.
+
+----
+
+  (10..100).include? 42
+
+================================================================================
