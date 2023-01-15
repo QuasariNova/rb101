@@ -50,3 +50,13 @@ suffix, while ? is used as the ternary operator and predicate suffix.
       a naming convention.
 
   6. This is used to turn a truthy/falsy expression into a boolean.
+
+================================================================================
+
+3.Replace the word "important" with "urgent" in this string:
+
+  advice = "Few things in life are as important as house training your pet dinosaur."
+
+----
+
+advice.gsub!('important', 'urgent')
