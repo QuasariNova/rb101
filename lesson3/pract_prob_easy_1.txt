@@ -5,6 +5,8 @@
 
   puts numbers
 
+----
+
 Expected ouput:
   1
   2
@@ -12,3 +14,39 @@ Expected ouput:
   3
 
 ================================================================================
+
+2.Describe the difference between ! and ? in Ruby. And explain what would
+happen in the following scenarios:
+
+  1. what is != and where should you use it?
+  2. put ! before something, like !user_name
+  3. put ! after something, like words.uniq!
+  4. put ? before something
+  5. put ? after something
+  6. put !! before something, like !!user_name
+
+----
+
+! and ? are both used a variety of ways. ! could be the ! operator, or the bang
+suffix, while ? is used as the ternary operator and predicate suffix.
+
+  1. != is the not equals operator, it checks if it's operands are equal to
+      each other. It's good to use when you want to check if a value isn't
+      another value
+
+  2. ! is the ! operator in this case. It checks if a value is falsy.
+
+  3. ! is the bang suffix in this case. It is used to denote that a method is
+      destructive. This isn't an automatic thing, just a style recommendation.
+
+  4. I don't know. In the syntax doc on ruby-doc.org it says that ?- is used to
+      represent all backslash notation and you can get ASCII code for
+      characters using it. It could also be a sign you are using it as the
+      ternary operator, with what comes after it being the expression if the
+      condition is evaluated as true
+
+  5. In this case it is the predicate suffix. This denotes a method returns a
+      boolean value. Just like the bang suffix, this is not automatic and just
+      a naming convention.
+
+  6. This is used to turn a truthy/falsy expression into a boolean.
