@@ -129,3 +129,19 @@ Make this into an un-nested array.
   flintstones.flatten!
 
 ================================================================================
+
+8.Given the hash below
+
+  flintstones = { "Fred" => 0, "Wilma" => 1, "Barney" => 2, "Betty" => 3, "BamBam" => 4, "Pebbles" => 5 }
+
+Turn this into an array containing only two elements: Barney's name and Barney's number
+
+----
+
+  (flintstones.select { |k, _| k == "Barney" }).to_a
+
+My answer is bad, it asks for a array of two elements, I get a 1 element nested
+  array where the element is a 2 element array.
+
+The solution was:
+  flintstones.assoc('Barney')
