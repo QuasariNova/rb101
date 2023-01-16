@@ -166,7 +166,8 @@ a small program to mess with their demographic data:
     end
   end
 
-After writing this method, he typed the following...and before Grandpa could stop him, he hit the Enter key with his tail:
+After writing this method, he typed the following...and before Grandpa could
+stop him, he hit the Enter key with his tail:
 
   mess_with_demographics(munsters)
 
@@ -176,5 +177,52 @@ Did the family's data get ransacked? Why or why not?
 
 #[]= is mutating. The family's data is referenced by demo_hash, thus The
 family's data did get ransacked.
+
+================================================================================
+
+8.Method calls can take expressions as arguments. Suppose we define a method
+called rps as follows, which follows the classic rules of rock-paper-scissors
+game: it returns the winning fist or, in the case of a tie, the fist that both
+players played.
+
+  def rps(fist1, fist2)
+    if fist1 == "rock"
+      (fist2 == "paper") ? "paper" : "rock"
+    elsif fist1 == "paper"
+      (fist2 == "scissors") ? "scissors" : "paper"
+    else
+      (fist2 == "rock") ? "rock" : "scissors"
+    end
+  end
+
+What is the result of the following call?
+
+  puts rps(rps(rps("rock", "paper"), rps("rock", "scissors")), "rock")
+
+----
+
+Let's evaluate this step by step:
+
+  puts rps(rps(rps("rock", "paper"), rps("rock", "scissors")), "rock")
+
+The most inner rps is going to have to be evaluated first for the outer ones to
+evaluate. Since we have two at the same level, they get evaluated left to right:
+
+  puts rps(rps("paper", rps("rock", "scissors")), "rock")
+then:
+  puts rps(rps("paper", "rock"), "rock")
+
+Now that we've evaluated both of those, we can evaluate the one that contained
+them:
+
+  puts rps("paper", "rock")
+
+And the final one:
+
+  puts "paper"
+
+Which outputs:
+
+  paper
 
 ================================================================================
