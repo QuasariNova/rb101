@@ -128,3 +128,20 @@ limit. This is due to scoping. If you change limit to a constant it should be
 fine. Alternatively, you could add an argument to fib for limit as well.
 
 ================================================================================
+
+What is the output of the following code?
+
+  answer = 42
+
+  def mess_with_it(some_number)
+    some_number += 8
+  end
+
+  new_answer = mess_with_it(answer)
+
+  p answer - 8
+
+----
+
+Because integers are immutable, mess_with_it will not mutate answer. p will
+print 34.
