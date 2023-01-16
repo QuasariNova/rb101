@@ -20,3 +20,20 @@ this case, a and c will have the same object_id, while b would have a different
 one. Basically a and b hold different objects, that just have the same data.
 
 ================================================================================
+
+2.Let's take a look at another example with a small difference in the code:
+
+  a = 42
+  b = 42
+  c = a
+
+  puts a.object_id
+  puts b.object_id
+  puts c.object_id
+
+----
+
+Integers, unlike strings, are immutable, so to save memory there is only one of
+each instance in memory. When you assign an integer literal, you are just
+pointing to that one integer literal. In this case, a, b, and c will all point
+to the same object_id.
