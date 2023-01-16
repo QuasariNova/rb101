@@ -110,3 +110,13 @@ As a bonus, what happens if you use the String#slice method instead?
 
 Using #slice would just return the substring that you define and not remove it
 from the original string.
+
+================================================================================
+
+Write a one-liner to count the number of lower-case 't' characters in the following string:
+
+  statement = "The Flintstones Rock!"
+
+----
+
+  statement.count 't'
