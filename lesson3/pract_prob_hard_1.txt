@@ -13,3 +13,19 @@ nil. If something is initialized in an if, ruby automatically initializes it as
 nil just in case the if doesn't run. I got this wrong before trying to run it in irb, guessing an error would happen.
 
 ================================================================================
+
+2.What is the result of the last line in the code below?
+
+  greetings = { a: 'hi' }
+  informal_greeting = greetings[:a]
+  informal_greeting << ' there'
+
+  puts informal_greeting  #  => "hi there"
+  puts greetings
+
+----
+
+  {:a=>'hi there'}
+
+We assign a reference to the string in the Hash and then mutate that string, so
+the string in the hash is the same string, thus changes.
