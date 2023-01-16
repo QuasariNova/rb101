@@ -9,3 +9,19 @@ For this practice problem, write a one-line program that creates the following o
 ----
 
   10.times { |n| puts "#{' ' * n}The Flintstones Rock!"}
+
+================================================================================
+
+The result of the following statement will be an error:
+
+  puts "the value of 40 + 2 is " + (40 + 2)
+
+Why is this and what are two possible ways to fix this?
+
+----
+
+40 + 2 evaluates as an integer 42, which is not able to be concatenated with a
+string. Two ways to fix this are:
+
+  puts "the value of 40 + 2 is " + (40 + 2).to_s
+  puts "the value of 40 + 2 is #{40 + 2}"
