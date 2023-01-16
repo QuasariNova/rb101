@@ -226,3 +226,24 @@ Which outputs:
   paper
 
 ================================================================================
+
+Consider these two simple methods:
+
+def foo(param = "no")
+  "yes"
+end
+
+def bar(param = "no")
+  param == "no" ? "yes" : "no"
+end
+
+What would be the return value of the following method invocation?
+
+bar(foo)
+
+----
+
+foo evaluates as "yes" no matter what is passed to it. bar will be passed
+"yes", which "yes" == "no" is false. Therefore this will evaluate as "no"
+
+  "no"
