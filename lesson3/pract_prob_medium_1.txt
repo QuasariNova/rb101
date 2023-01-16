@@ -25,3 +25,51 @@ string. Two ways to fix this are:
 
   puts "the value of 40 + 2 is " + (40 + 2).to_s
   puts "the value of 40 + 2 is #{40 + 2}"
+
+================================================================================
+
+3.Alan wrote the following method, which was intended to show all of the factors of the input number:
+
+def factors(number)
+  divisor = number
+  factors = []
+  begin
+    factors << number / divisor if number % divisor == 0
+    divisor -= 1
+  end until divisor == 0
+  factors
+end
+
+Alyssa noticed that this will fail if the input is 0, or a negative number, and
+asked Alan to change the loop. How can you make this work without using the
+begin/end until construct? Note that we're not looking to find the factors for
+0 or negative numbers, but we just want to handle it gracefully instead of
+raising an exception or going into an infinite loop.
+
+Bonus 1
+What is the purpose of the number % divisor == 0 ?
+
+Bonus 2
+What is the purpose of the second-to-last line (line 8) in the method (the
+factors before the method's end)?
+
+----
+Not using begin/end until loop:
+
+  def factors(number)
+    divisor = number
+    factors = []
+    while divisor > 0
+      factors << number / divisor if number % divisor == 0
+      divisor -= 1
+    end
+    factors
+  end
+
+Bonuses:
+  1. To check if divisor fully divides into number without a remainder aka is
+    really a factor.
+
+  2. It is used to implicitly return factors.
+
+================================================================================
