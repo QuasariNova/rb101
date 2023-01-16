@@ -55,18 +55,13 @@ def find_possible_inputs(user_input)
   VALID_CHOICES.select { |choice| choice.start_with? user_input }
 end
 
-def display_game_results(who_won)
+def display_results(who_won, match_results: false)
   return prompt get_message 'a_tie' if !who_won
 
-  name_label = who_won == :player ? 'player_name' : 'computer_name'
-  prompt format(get_message('actor_game_won'), name: get_message(name_label))
-end
-
-def display_match_results(who_won)
-  grand_message = get_message 'actor_match_won'
+  message_label = match_results ? 'actor_match_won' : 'actor_game_won'
   name_label = who_won == :player ? 'player_name' : 'computer_name'
 
-  prompt format(grand_message, name: get_message(name_label))
+  prompt format(get_message(message_label), name: get_message(name_label))
 end
 
 def ask_to_replay
@@ -176,14 +171,14 @@ loop do
     display_each_choices(player_one_choice, player_two_choice)
 
     who_won = calculate_win(player_one_choice, player_two_choice)
-    display_game_results who_won
+    display_results who_won
 
     score[who_won] += 1 unless !who_won # this is easier to understand than math
     display_score score if match
 
     if !match || score[who_won] >= MATCH_WIN_LIMIT # game / match is over
       if match
-        display_match_results who_won
+        display_results(who_won, match_results: true)
         score = create_zero_score # Forgot to zero score on match win
       end
 
