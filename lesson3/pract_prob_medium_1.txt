@@ -95,3 +95,36 @@ She wrote two implementations saying, "Take your pick. Do you like << or + for m
 If you use << it will mutate the buffer passed to it. If you use + for
 modifying it, it will not mutate input_array. Both have their uses, if you need
 to keep the value of the previous buffer + is better, otherwise << is fine.
+
+================================================================================
+
+5.Alyssa asked Ben to write up a basic implementation of a Fibonacci
+calculator. A user passes in two numbers, and the calculator will keep
+computing the sequence until some limit is reached.
+
+Ben coded up this implementation but complained that as soon as he ran it, he
+got an error. Something about the limit variable. What's wrong with the code?
+
+limit = 15
+
+def fib(first_num, second_num)
+  while first_num + second_num < limit
+    sum = first_num + second_num
+    first_num = second_num
+    second_num = sum
+  end
+  sum
+end
+
+result = fib(0, 1)
+puts "result is #{result}"
+
+How would you fix this so that it works?
+
+----
+
+This is happening, because the fib method has no access to local variable
+limit. This is due to scoping. If you change limit to a constant it should be
+fine. Alternatively, you could add an argument to fib for limit as well.
+
+================================================================================
